@@ -36,6 +36,12 @@ class Reservation
      */
     private $articles;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +91,18 @@ class Reservation
     public function setArticles(?Article $articles): self
     {
         $this->articles = $articles;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

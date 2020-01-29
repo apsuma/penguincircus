@@ -68,11 +68,23 @@ class Article
      */
     private $showDate;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="favArticles")
+     */
+    private $favUsers;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="author")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $authorOf;
+
     public function __construct()
     {
         $this->keywords = new ArrayCollection();
         $this->themes = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->favUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -243,6 +255,46 @@ class Article
     public function setShowDate(?\DateTimeInterface $showDate): self
     {
         $this->showDate = $showDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getFavUsers(): Collection
+    {
+        return $this->favUsers;
+    }
+
+    public function addFavUser(User $favUser): self
+    {
+        if (!$this->favUsers->contains($favUser)) {
+            $this->favUsers[] = $favUser;
+            $favUser->addFavArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavUser(User $favUser): self
+    {
+        if ($this->favUsers->contains($favUser)) {
+            $this->favUsers->removeElement($favUser);
+            $favUser->removeFavArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function getAuthorOf(): ?User
+    {
+        return $this->authorOf;
+    }
+
+    public function setAuthorOf(?User $authorOf): self
+    {
+        $this->authorOf = $authorOf;
 
         return $this;
     }
