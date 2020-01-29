@@ -10,7 +10,9 @@
         {{ encore_entry_link_tags('app') }}
     </head>
     <body>
-        {% block navBar %}{% endblock %}
+        {% block navBar %}
+                {% include('Blocks/_navbar.html.twig') %}
+        {% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
         {{ encore_entry_script_tags('app') }}

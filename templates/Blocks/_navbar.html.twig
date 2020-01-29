@@ -1,0 +1,24 @@
+<nav id="navbarUser" class="navbar">
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            {% if app.user %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary rounded-pill" href="{{ path('app_logout') }}">Déconnexion</a>
+                </li>
+            {% endif %}
+            {% if app.user is empty %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Compte
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right bg-primary" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item bg-primary" href="{{ path('app_login') }}">Se connecter</a>
+                        <a class="dropdown-item bg-primary" href="#">S'inscrire</a>
+                    </div>
+                </li>
+            {% endif %}
+        </ul>
+
+    </div>
+</nav>
