@@ -5,10 +5,10 @@ namespace App\Form;
 use App\Entity\Article;
 use App\Entity\Keywords;
 use App\Entity\Theme;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,7 +25,8 @@ class ArticleType extends AbstractType
             ])
             ->add('description', TextareaType::class)
             ->add('picture', TextType::class, [
-                'label' => 'url du visuel'
+                'label' => 'url du visuel',
+                'required' => false
             ])
             ->add('inFront', CheckboxType::class, [
                 'label' => 'article à la Une (nb max : 3)',
@@ -45,17 +46,19 @@ class ArticleType extends AbstractType
                 'class' => Keywords::class,
                 'choice_label'=> 'name',
                 'required' => false,
-                'multiple' => true
+                'multiple' => true,
+                'expanded' => true
             ])
             ->add('themes', EntityType::class, [
                 'label' => 'thème(s):',
                 'class' => Theme::class,
                 'choice_label' => 'name',
                 'required' => true,
-                'multiple' => true
+                'multiple' => true,
+                'expanded' => true
             ])
-            ->add('favUsers', CollectionType::class)
-            ->add('authorOf', EntityType::class)
+            ->add('favUsers', EntityType::class, [ 'class' => User::class])
+            ->add('authorOf', EntityType::class, ['class' => User::class])
         ;
     }
 

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Reservation;
+use App\Entity\User;
 use Doctrine\DBAL\Types\DateTimeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -20,7 +21,7 @@ class ReservationType extends AbstractType
             ->add('nbPlaceAdult', NumberType::class)
             ->add('createdAt', DateTimeType::class)
             ->add('articles', CollectionType::class)
-            ->add('user', CollectionType::class)
+            ->add('user', EntityType::class, ['class' => User::class])
         ;
     }
 
