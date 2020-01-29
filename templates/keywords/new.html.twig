@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Keywords{% endblock %}
+
+{% block body %}
+    <h1>Create new Keywords</h1>
+
+    {{ include('keywords/_form.html.twig') }}
+
+    <a href="{{ path('keywords_index') }}">back to list</a>
+{% endblock %}

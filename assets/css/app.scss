@@ -17,8 +17,8 @@ $rgba-secondary-2-3: rgba(178,250,  0,1);
 $rgba-secondary-2-4: rgba(169,237,  0,1);
 
 body {
-    background-color: darkgrey!important;
-    font-family: 'Lato', sans-serif;
+    background-color: $rgba-secondary-1-1!important;
+    font-family: 'Lato', sans-serif!important;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');

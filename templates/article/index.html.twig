@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article index{% endblock %}
+
+{% block body %}
+    <h1>Article index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>Titre de l'article</th>
+                <th>Description</th>
+                <th>Picture</th>
+                <th>Spectacle ouvert à la réservation ?</th>
+                <th>Article à la une</th>
+                <th>Date du spectacle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ article.subject }}</td>
+                <td>{{ article.description }}</td>
+                <td>{{ article.picture }}</td>
+                <td>{{ article.resaOpen ? 'Yes' : 'No' }}</td>
+                <td>{{ article.inFront ? 'Yes' : 'No' }}</td>
+                <td>{{ article.showDate ? article.showDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_article_show', {'id': article.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('admin_article_edit', {'id': article.id}) }}"><i class="far fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">aucun article trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_article_new') }}">Create new</a>
+{% endblock %}
