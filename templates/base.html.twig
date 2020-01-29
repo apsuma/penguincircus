@@ -3,10 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+
+        {% block stylesheets %}
+            <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        {% endblock %}
+        {{ encore_entry_link_tags('app') }}
     </head>
     <body>
+        {% block navBar %}{% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        {{ encore_entry_script_tags('app') }}
     </body>
 </html>
