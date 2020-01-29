@@ -9,9 +9,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>NbPlaceChild</th>
-                <th>NbPlaceAdult</th>
-                <th>CreatedAt</th>
+                <th>Nb Places enfant Pingouin</th>
+                <th>Nb Places Pingouin adulte</th>
+                <th>Date de la réservation</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,17 +23,17 @@
                 <td>{{ reservation.nbPlaceAdult }}</td>
                 <td>{{ reservation.createdAt ? reservation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('reservation_show', {'id': reservation.id}) }}">show</a>
-                    <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
+                    <a href="{{ path('admin_reservation_show', {'id': reservation.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('admin_reservation_edit', {'id': reservation.id}) }}"><i class="far fa-edit"></i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">pas d'enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('reservation_new') }}">Create new</a>
+    <a href="{{ path('admin_reservation_new') }}"><i class="fas fa-plus-circle"></i></a>
 {% endblock %}

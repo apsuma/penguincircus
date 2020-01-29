@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Reservation;
+use App\Entity\User;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,14 +31,24 @@ class ReservationController extends AbstractController
     /**
      * @Route("/new", name="_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        User $user,
+        Article $article
+        ): Response {
         $reservation = new Reservation();
-        $form = $this->createForm(ReservationType::class, $reservation);
+        $form = $this
+            ->createForm(ReservationType::class, $reservation)
+            ->remove('createdAt')
+            ->remove('user')
+            ->remove('articles')
+        ;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $reservation->setUser($user);
+            $reservation->setArticles($article);
             $entityManager->persist($reservation);
             $entityManager->flush();
 
@@ -61,13 +74,21 @@ class ReservationController extends AbstractController
     /**
      * @Route("/{id}/edit", name="_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Reservation $reservation): Response
-    {
-        $form = $this->createForm(ReservationType::class, $reservation);
+    public function edit(
+        Request $request,
+        Reservation $reservation,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $form = $this
+            ->createForm(ReservationType::class, $reservation)
+            ->remove('createdAt')
+            ->remove('user')
+            ->remove('articles')
+        ;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+           $entityManager->flush();
 
             return $this->redirectToRoute('admin_reservation_index');
         }

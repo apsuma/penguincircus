@@ -5,18 +5,20 @@ namespace App\Controller;
 use App\Entity\Theme;
 use App\Form\ThemeType;
 use App\Repository\ThemeRepository;
+use App\Service\Sluger;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/theme")
+ * @Route("/admin/theme", name="admin_theme")
  */
-class ThemeController extends AbstractController
+class AdminThemeController extends AbstractController
 {
     /**
-     * @Route("/", name="theme_index", methods={"GET"})
+     * @Route("/", name="_index", methods={"GET"})
      */
     public function index(ThemeRepository $themeRepository): Response
     {
@@ -26,20 +28,28 @@ class ThemeController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="theme_new", methods={"GET","POST"})
+     * @Route("/new", name="_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        Sluger $sluger
+    ): Response {
         $theme = new Theme();
-        $form = $this->createForm(ThemeType::class, $theme);
+        $form = $this
+            ->createForm(ThemeType::class, $theme)
+            ->remove('slug')
+            ->remove('articles')
+        ;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $modify = $sluger->modifyName($theme->getName());
+            $theme->setSlug($modify);
             $entityManager->persist($theme);
             $entityManager->flush();
 
-            return $this->redirectToRoute('theme_index');
+            return $this->redirectToRoute('admin_theme_index');
         }
 
         return $this->render('theme/new.html.twig', [
@@ -49,7 +59,7 @@ class ThemeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="theme_show", methods={"GET"})
+     * @Route("/{id}", name="_show", methods={"GET"})
      */
     public function show(Theme $theme): Response
     {
@@ -59,17 +69,27 @@ class ThemeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="theme_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Theme $theme): Response
-    {
-        $form = $this->createForm(ThemeType::class, $theme);
+    public function edit(
+        Request $request,
+        Theme $theme,
+        Sluger $sluger,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $form = $this
+            ->createForm(ThemeType::class, $theme)
+            ->remove('slug')
+            ->remove('articles')
+        ;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $modify = $sluger->modifyName($theme->getName());
+            $theme->setSlug($modify);
+            $entityManager->flush();
 
-            return $this->redirectToRoute('theme_index');
+            return $this->redirectToRoute('admin_theme_index');
         }
 
         return $this->render('theme/edit.html.twig', [
@@ -79,7 +99,7 @@ class ThemeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="theme_delete", methods={"DELETE"})
+     * @Route("/{id}", name="_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Theme $theme): Response
     {
@@ -89,6 +109,6 @@ class ThemeController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('theme_index');
+        return $this->redirectToRoute('admin_theme_index');
     }
 }

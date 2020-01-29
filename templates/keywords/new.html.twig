@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Keywords{% endblock %}
+{% block title %}Ajouter un mot-clé{% endblock %}
 
 {% block body %}
-    <h1>Create new Keywords</h1>
+    <h1>Créer un nouveau mot-clé</h1>
 
     {{ include('keywords/_form.html.twig') }}
 
-    <a href="{{ path('keywords_index') }}">back to list</a>
+    <a href="{{ path('admin_keywords_index') }}">retour à la liste</a>
 {% endblock %}

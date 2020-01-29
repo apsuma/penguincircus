@@ -1,15 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}Liste des articles{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
+    <h1>Liste des articles</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>CreatedAt</th>
                 <th>Titre de l'article</th>
                 <th>Description</th>
                 <th>Picture</th>
@@ -22,13 +20,11 @@
         <tbody>
         {% for article in articles %}
             <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ article.subject }}</td>
                 <td>{{ article.description }}</td>
                 <td>{{ article.picture }}</td>
-                <td>{{ article.resaOpen ? 'Yes' : 'No' }}</td>
-                <td>{{ article.inFront ? 'Yes' : 'No' }}</td>
+                <td>{{ article.resaOpen ? 'Oui' : 'Non' }}</td>
+                <td>{{ article.inFront ? 'Oui' : 'Non' }}</td>
                 <td>{{ article.showDate ? article.showDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('admin_article_show', {'id': article.id}) }}"><i class="far fa-eye"></i></a>
@@ -43,5 +39,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin_article_new') }}">Create new</a>
+    <a href="{{ path('admin_article_new') }}"><i class="fas fa-plus-circle"></i></a>
 {% endblock %}

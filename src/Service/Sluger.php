@@ -4,7 +4,7 @@ namespace App\Service;
 
 class Sluger
 {
-    public function modifyCityName(?string $input): string
+    public function modifyName(?string $input): string
     {
         if (is_null($input)) {
             return "";

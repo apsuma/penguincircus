@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Theme index{% endblock %}
+{% block title %}Liste des themes{% endblock %}
 
 {% block body %}
-    <h1>Theme index</h1>
+    <h1>Liste des themes</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Slug</th>
                 <th>actions</th>
             </tr>
@@ -21,17 +21,17 @@
                 <td>{{ theme.name }}</td>
                 <td>{{ theme.slug }}</td>
                 <td>
-                    <a href="{{ path('theme_show', {'id': theme.id}) }}">show</a>
-                    <a href="{{ path('theme_edit', {'id': theme.id}) }}">edit</a>
+                    <a href="{{ path('admin_theme_show', {'id': theme.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('admin_theme_edit', {'id': theme.id}) }}"><i class="far fa-edit"></i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('theme_new') }}">Create new</a>
+    <a href="{{ path('admin_theme_new') }}"><i class="fas fa-plus-circle"></i></a>
 {% endblock %}

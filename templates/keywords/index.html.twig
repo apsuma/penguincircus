@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Keywords index{% endblock %}
+{% block title %}Liste des mots-clés{% endblock %}
 
 {% block body %}
-    <h1>Keywords index</h1>
+    <h1>Liste des mots-clés</h1>
 
     <table class="table">
         <thead>
@@ -21,17 +21,17 @@
                 <td>{{ keyword.name }}</td>
                 <td>{{ keyword.slug }}</td>
                 <td>
-                    <a href="{{ path('keywords_show', {'id': keyword.id}) }}">show</a>
-                    <a href="{{ path('keywords_edit', {'id': keyword.id}) }}">edit</a>
+                    <a href="{{ path('admin_keywords_show', {'id': keyword.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('admin_keywords_edit', {'id': keyword.id}) }}"><i class="far fa-edit"></i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('keywords_new') }}">Create new</a>
+    <a href="{{ path('admin_keywords_new') }}"><i class="fas fa-plus-circle"></i></a>
 {% endblock %}

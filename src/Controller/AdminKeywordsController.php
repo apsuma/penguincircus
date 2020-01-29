@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Keywords;
 use App\Form\KeywordsType;
 use App\Repository\KeywordsRepository;
+use App\Service\Sluger;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/keywords", name="admin_keywords")
  */
-class KeywordsController extends AbstractController
+class AdminKeywordsController extends AbstractController
 {
     /**
      * @Route("/", name="_index", methods={"GET"})
@@ -28,14 +30,22 @@ class KeywordsController extends AbstractController
     /**
      * @Route("/new", name="_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        Sluger $sluger
+    ): Response {
         $keyword = new Keywords();
-        $form = $this->createForm(KeywordsType::class, $keyword);
+        $form = $this
+            ->createForm(KeywordsType::class, $keyword)
+            ->remove('slug')
+            ->remove('articles')
+        ;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $modify = $sluger->modifyName($keyword->getName());
+            $keyword->setSlug($modify);
             $entityManager->persist($keyword);
             $entityManager->flush();
 
@@ -61,14 +71,23 @@ class KeywordsController extends AbstractController
     /**
      * @Route("/{id}/edit", name="_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Keywords $keyword): Response
-    {
-        $form = $this->createForm(KeywordsType::class, $keyword);
+    public function edit(
+        Request $request,
+        Sluger $modifyKeyword,
+        Keywords $keyword,
+        EntityManagerInterface $em
+    ): Response {
+        $form = $this
+            ->createForm(KeywordsType::class, $keyword)
+            ->remove('slug')
+            ->remove('articles')
+        ;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+            $modify= $modifyKeyword->modifyName($keyword->getName());
+            $keyword->setSlug($modify);
+            $em->flush();
             return $this->redirectToRoute('admin_keywords_index');
         }
 
