@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Theme;
 use App\Repository\ThemeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,16 @@ class ThemeController extends AbstractController
     {
         return $this->render('theme/publicIndex.html.twig', [
             'theme' => $theme,
+        ]);
+    }
+
+    /**
+     * @Route("/theme/article/{id}", name="theme_article_show")
+     */
+    public function articleShow(Article $article): Response
+    {
+        return $this->render('theme/publicArticle.html.twig', [
+            'article' => $article,
         ]);
     }
 

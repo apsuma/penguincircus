@@ -30,6 +30,7 @@ class PublicReservationController extends AbstractController
             -> createForm(ReservationType::class, $reservation)
             -> remove('createdAt')
             -> remove('user')
+            -> remove('accepted')
         ;
         $form -> handleRequest($request);
 
