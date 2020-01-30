@@ -5,21 +5,25 @@
 {% block body %}
     <h1 class="text-center text-primary display-4">Articles pour le thème {{ theme.name }}</h1>
     <div class="container">
-        {% for article in theme.articles %}
-            <div class="card-deck">
+        <div class="card-deck">
+            {% for article in theme.articles %}
                 <div class="card bg-primary rounded col-4 shadow p-3 mb-5">
-                    <img class="card-img-top text-center" src="{{ asset('images/penguin_snowmanning.jpg')}}" alt="visuel de {{ article.subject }}">
+                    <img class="card-img-top text-center" src="{{ asset('build/images/penguin_snowmanning.jpg')}}" alt="visuel de {{ article.subject }}">
                     <div class="card-body">
                         <h4 class="card-title bg-white font-weight-bold text-center">{{ article.subject }}</h4>
                         <p class="card-text">{{ article.description }}</p>
                         <p>Mots-clés associés :
-                            {% for keyword in article.keywords %}
-                                {{ keyword.name }}
-                            {% endfor %}
+                               {% for keyword in article.keywords %}
+                                    {{ keyword.name }}
+                                {% endfor %}
                         </p>
-                    <a href="{{ path('admin_theme_show', {'slug': theme.slug}) }}"><i class="far fa-eye"></i></a>
-                    <a href="{{ path('admin_theme_edit', {'slug': theme.slug}) }}"><i class="far fa-edit"></i></a>
-        {% else %}
-                <p>aucun enregistrement trouvé</p>
-        {% endfor %}
+                        {% if (article.showDate) %}
+                            <p class="card-text">Date de la représentation : {{ article.showDate|date("l d F Y") }}</p>
+                            <a class="btn btn-primary align-items-center" href="#">Réservez !</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

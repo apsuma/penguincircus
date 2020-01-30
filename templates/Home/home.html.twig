@@ -4,4 +4,25 @@
 
 {% block body %}
     <h1> Bienvenue sur Penguin Antartica Circus </h1>
+    {% for article in articles %}
+        <div class="card-deck">
+                <div class="card bg-primary rounded col-3 shadow p-3 mb-5">
+                    <img class="card-img-top text-center" src="{{ asset('build/images/penguin_snowmanning.jpg')}}" alt="visuel de {{ article.subject }}">
+                    <div class="card-body">
+                        <h4 class="card-title bg-white font-weight-bold text-center">{{ article.subject }}</h4>
+                        <p class="card-text">{{ article.description }}</p>
+                        <p>Mots-clés associés :
+                        {% for keyword in article.keywords %}
+                            {{ keyword.name }}
+                        {% endfor %}
+                        </p>
+                        {% if (article.showDate) %}
+                            <p class="card-text">Date de la représentation : {{ article.showDate|date("l d F Y") }}</p>
+                            <a class="btn btn-primary align-items-center" href="#">Réservez !</a>
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+
+    {% endfor %}
 {% endblock %}
