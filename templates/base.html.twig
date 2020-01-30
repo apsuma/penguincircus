@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Penguin Antartic Circus - Home{% endblock %}</title>
-
         {% block stylesheets %}
             <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
         {% endblock %}
@@ -11,7 +10,11 @@
     </head>
     <body>
         {% block navBar %}
-                {% include('Blocks/_navbar.html.twig') %}
+            {% if is_granted('ROLE_ADMIN') %}
+                {% include('Blocks/_adminnavbar.html.twig') %}
+            {% else %}
+                {{ render(controller('App\\Controller\\ThemeController::renderNavbar')) }}
+            {% endif %}
         {% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}

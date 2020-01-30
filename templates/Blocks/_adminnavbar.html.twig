@@ -1,17 +1,18 @@
-<nav id="navbarUser" class="navbar navbar-light navbar-expand-md justify-content-center">
+<nav id="navbarAdmin" class="navbar navbar-light navbar-expand-md justify-content-center">
     <div class="navbar-collapse collapse justify-content-between align-items-center w-100">
         <ul class="navbar-nav mx-auto">
             <li class="navbar-item">
                 <a class="">accueil</a>
             </li>
-            {% for theme in themes %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('admin_theme_index', { 'slug' : theme.slug }) }}">{{ theme.name }}</a>
-                </li>
-            {% endfor %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_theme_index') }}">Thèmes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_keywords_index') }}">Mots-clés</a>
+            </li>
             {% if app.user %}
                 <li class="nav-item">
-                    <a class="btn btn-outline-secondary rounded-pill" href="{{ path('app_logout') }}">Déconnexion</a>
+                    <a class="btn btn-outline-secondary" href="{{ path('app_logout') }}">Déconnexion</a>
                 </li>
             {% endif %}
             {% if app.user is empty %}
