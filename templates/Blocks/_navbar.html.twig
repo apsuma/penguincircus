@@ -6,7 +6,7 @@
             </li>
             {% for theme in themes %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('admin_theme_index', { 'slug' : theme.slug }) }}">{{ theme.name }}</a>
+                    <a class="nav-link" href="{{ path('theme_index', { 'slug' : theme.slug }) }}">{{ theme.name }}</a>
                 </li>
             {% endfor %}
             {% if app.user %}

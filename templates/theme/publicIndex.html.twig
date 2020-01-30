@@ -1,10 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Theme {{ theme.name }} pour le public{% endblock %}
+{% block title %} Theme {{ theme.name }}{% endblock %}
 
 {% block body %}
-    <h1>Liste des themes</h1>
-
+    <h1 class="text-center text-primary display-4">Articles sur {{ theme.name }}</h1>
+    <div class="container">
+        <div class="card-deck">
+            {% for article in theme.articles %}
+                <img class="card-img-top" src="{{ asset('public/images/penguin_snowmanning.jpg'}}" alt="visuel de {{ article.subject }}">
+                <div class="card bg-primary rounded col-4 shadow p-3 mb-5">
+                    <div class="card-body">
+                        <h4 class="card-title bg-white font-weight-bold">{{ article.subject }}</h4>
+                        <p class="card-text">{{ article.description }}</p>
+                        <p>Mots-clés associés :
+                            {% for keyword in article.keyword %}
+                                {{ keyword.name }}
+                            {% endfor %}
+                        </p>
+            {% endfor %}
     <table class="table">
         <thead>
             <tr>

@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ThemeController extends AbstractController
 {
     /**
-     * @Route("/theme/{id}", name="index")
+     * @Route("/theme/{id}", name="theme_index")
      */
     public function index(Theme $theme):Response
     {

@@ -3,28 +3,25 @@
 {% block title %}Theme {{ theme.name }}{% endblock %}
 
 {% block body %}
-    <h1>Theme {{ theme.name }}</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ theme.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ theme.name }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ theme.slug }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('admin_theme_index') }}">retour à la liste</a>
-
-    <a href="{{ path('admin_theme_edit', {'slug': theme.slug}) }}"><i class="far fa-edit"></a>
-
-    {{ include('theme/_delete_form.html.twig') }}
-{% endblock %}
+    <h1 class="text-center text-primary display-4">Theme {{ theme.name }}</h1>
+    <div class="container">
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                {% for article in theme.articles %}
+                    <li class="list-group-item">
+                        <a href="{{ path('admin_article_show', {'id': article.id}) }}">
+                            {{ article.subject }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <div class="row d-flex justify-content-between">
+                <a href="{{ path('admin_theme_index') }}">retour à la liste</a>
+                <a href="{{ path('admin_theme_edit', {'slug': theme.slug}) }}"><i class="far fa-edit"></i></a>
+                <a class="btn btn-primary">{{ include('theme/_delete_form.html.twig') }}</a>
+            </div>
+        </div>
+    </div>
+  {% endblock %}
