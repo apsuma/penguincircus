@@ -1,4 +1,4 @@
-$rgba-primary-0: rgba( 26,238, 63,1);	// Main Primary color */
+$rgba-primary-0: rgba( 26,238, 63,0.3);	// Main Primary color */
 $rgba-primary-1: rgba(114,244,137,1);
 $rgba-primary-2: rgba( 68,241, 98,1);
 $rgba-primary-3: rgba(  0,234, 41,1);
@@ -15,6 +15,9 @@ $rgba-secondary-2-1: rgba(214,252,118,1);
 $rgba-secondary-2-2: rgba(199,252, 71,1);
 $rgba-secondary-2-3: rgba(178,250,  0,1);
 $rgba-secondary-2-4: rgba(169,237,  0,1);
+$warning : $rgba-secondary-2-1;
+$info : $rgba-primary-0;
+$primary :$rgba-secondary-1-4;
 
 body {
     background-color: $rgba-secondary-1-1!important;

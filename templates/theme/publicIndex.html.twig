@@ -17,6 +17,8 @@
                                     {{ keyword.name }}
                                 {% endfor %}
                         </p>
+                        <a href="{{ path('theme_article_show', {'id': article.id}) }}"
+                           class="stretched-link"> </a>
                         {% if (article.showDate) %}
                             <p class="card-text">Date de la représentation : {{ article.showDate|date("l d F Y") }}</p>
                             <a class="btn btn-primary align-items-center"

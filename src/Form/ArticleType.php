@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Keywords;
 use App\Entity\Theme;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -64,7 +65,7 @@ class ArticleType extends AbstractType
                 'required' => false
             ])
             ->add('favUsers', EntityType::class, [
-                'label' => 'Utilisateurs ayant marqué cet article en favori',
+                'label' => 'en favori',
                 'class' => User::class,
                 'choice_label' => 'lastName',
                 'required' => false,

@@ -4,9 +4,10 @@
 
 {% block body %}
     {% include('Blocks/_flash_messages.html.twig') %}
-    <h1> Bienvenue sur Penguin Antartica Circus </h1>
-    {% for article in articles %}
+    <h1 class="text-center text-primary display-4"> Bienvenue au Penguin Antartica Circus </h1>
+    <div class="container">
         <div class="card-deck">
+            {% for article in articles %}
                 <div class="card bg-primary rounded col-3 shadow p-3 mb-5">
                     <img class="card-img-top text-center" src="{{ asset('build/images/penguin_snowmanning.jpg')}}" alt="visuel de {{ article.subject }}">
                     <div class="card-body">
@@ -24,7 +25,7 @@
                         {% endif %}
                     </div>
                 </div>
+            {% endfor %}
         </div>
-
-    {% endfor %}
+    </div>
 {% endblock %}

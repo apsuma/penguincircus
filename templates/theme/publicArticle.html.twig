@@ -1,6 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    page détail d'un article pour public depuis theme
-
+<div class="container">
+    <div class="justify-content-center">
+        <div class="card bg-primary rounded col-5 shadow p-3 mb-5">
+            <img class="card-img-top text-center" src="{{ asset('build/images/penguin_snowmanning.jpg')}}" alt="visuel de {{ article.subject }}">
+            <div class="card-body">
+                <h4 class="card-title bg-white font-weight-bold text-center">{{ article.subject }}</h4>
+                <p class="card-text text-warning">{{ article.description }}</p>
+                <p class="card-text text-warning">Mots-clés associés :
+                    {% for keyword in article.keywords %}
+                        {{ keyword.name }}
+                    {% endfor %}
+                </p>
+                {% if (article.showDate) %}
+                    <p class="card-text">Date de la représentation : {{ article.showDate|date("l d F Y") }}</p>
+                    <a class="btn btn-primary align-items-center"
+                       href="{{ path('public_reservation') }}">Réservez !</a>
+                {% endif %}
+                <div>
+                    {{ include('article/_form.html.twig', {'button_label': 'En favori'}) }}
+                </div>
+                <p class="card-text"><small class="text-warning"> article created {{ created}}</small></p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
