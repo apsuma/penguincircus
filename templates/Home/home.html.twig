@@ -3,6 +3,7 @@
 {% block title %} Penguin Antartica Circus - Home{% endblock %}
 
 {% block body %}
+    {% include('Blocks/_flash_messages.html.twig') %}
     <h1> Bienvenue sur Penguin Antartica Circus </h1>
     {% for article in articles %}
         <div class="card-deck">
@@ -18,7 +19,8 @@
                         </p>
                         {% if (article.showDate) %}
                             <p class="card-text">Date de la représentation : {{ article.showDate|date("l d F Y") }}</p>
-                            <a class="btn btn-primary align-items-center" href="#">Réservez !</a>
+                            <a class="btn btn-primary align-items-center"
+                               href="{{ path('public_reservation') }}">Réservez !</a>
                         {% endif %}
                     </div>
                 </div>
