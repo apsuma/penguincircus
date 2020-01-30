@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Repository\ArticleRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,7 +38,10 @@ class ReservationType extends AbstractType
                 'required' => true
             ])
             ->add('user', EntityType::class, ['class' => User::class])
-        ;
+            ->add('accepted', CheckboxType::class, [
+                'label' => 'Réservation acceptée',
+                'required' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

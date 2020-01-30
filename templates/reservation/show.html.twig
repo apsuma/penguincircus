@@ -23,6 +23,13 @@
                 <th>CreatedAt</th>
                 <td>{{ reservation.createdAt ? reservation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>Confirmer à :</th>
+                <td>{% if reservation.user.email %}
+                    <a href="mailto:{{ reservation.user.email }}">reservation.user.email</a>
+                    {% endif %}
+                </td>
+            </tr>
         </tbody>
     </table>
 

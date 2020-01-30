@@ -3,17 +3,18 @@
 {% block title %}Liste des articles{% endblock %}
 
 {% block body %}
-    <h1>Liste des articles</h1>
-
+    <h1 class="text-center text-primary display-4">Liste des articles</h1>
+    <h3 class="text-center text-primary display-4"> - 3 articles au maximum à la une -</h3>
+    <a class="btn btn-primary btn-block" href="{{ path('admin_reservation_new') }}"><i class="fas fa-plus-circle"></i></a>
     <table class="table">
         <thead>
             <tr>
                 <th>Titre de l'article</th>
                 <th>Description</th>
-                <th>Picture</th>
-                <th>Spectacle ouvert à la réservation ?</th>
                 <th>Article à la une</th>
+                <th>Spectacle ouvert à la réservation ?</th>
                 <th>Date du spectacle</th>
+                <th>Thème</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,10 +23,13 @@
             <tr>
                 <td>{{ article.subject }}</td>
                 <td>{{ article.description }}</td>
-                <td>{{ article.picture }}</td>
-                <td>{{ article.resaOpen ? 'Oui' : 'Non' }}</td>
                 <td>{{ article.inFront ? 'Oui' : 'Non' }}</td>
-                <td>{{ article.showDate ? article.showDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ article.resaOpen ? 'Oui' : 'Non' }}</td>
+                <td>{{ article.showDate ? article.showDate|date('d/m/Y') : '' }}</td>
+                <td>{% for theme in article.keywords %}
+                        {{ theme.name }}
+                    {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('admin_article_show', {'id': article.id}) }}"><i class="far fa-eye"></i></a>
                     <a href="{{ path('admin_article_edit', {'id': article.id}) }}"><i class="far fa-edit"></i></a>
@@ -38,6 +42,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('admin_article_new') }}"><i class="fas fa-plus-circle"></i></a>
 {% endblock %}
