@@ -28,6 +28,17 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    public function findAlaUneArticles(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.inFront = true')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

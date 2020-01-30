@@ -15,7 +15,7 @@ class HomeController extends AbstractController
      */
     public function index(ArticleRepository $articleRepo, EntityManagerInterface $entityManager):Response
     {
-        $articles = $articleRepo->findRecentArticles();
+        $articles = $articleRepo->findAlaUneArticles();
         return $this->render('Home/home.html.twig', ['articles' => $articles]);
     }
 }

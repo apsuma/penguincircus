@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationRepository")
@@ -24,6 +25,7 @@ class Reservation
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Veuillez indiquer le nombre d'adultes inscrits")
      */
     private $nbPlaceAdult;
 
@@ -34,6 +36,7 @@ class Reservation
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="reservations")
+     * @Assert\NotBlank(message="Veuillez indiquer pour quel évènement vous réservez")
      */
     private $articles;
 
