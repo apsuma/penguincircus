@@ -40,7 +40,6 @@ class AdminArticleController extends AbstractController
         $form = $this
             ->createForm(ArticleType::class, $article)
             ->remove('favUsers')
-            ->remove('authorOf')
         ;
         $form->handleRequest($request);
 
@@ -74,9 +73,14 @@ class AdminArticleController extends AbstractController
     public function edit(
         Request $request,
         Article $article,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        UserInterface $user
     ): Response {
-        $form = $this->createForm(ArticleType::class, $article);
+        $form = $this
+            ->createForm(ArticleType::class, $article)
+            ->remove('favUsers')
+            ->remove('authorOf')
+        ;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

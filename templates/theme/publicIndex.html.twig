@@ -3,11 +3,11 @@
 {% block title %} Theme {{ theme.name }}{% endblock %}
 
 {% block body %}
-    <h1 class="text-center text-primary display-4">Articles sur {{ theme.name }}</h1>
+    <h1 class="text-center text-primary display-4">Articles pour le thème {{ theme.name }}</h1>
     <div class="container">
         <div class="card-deck">
             {% for article in theme.articles %}
-                <img class="card-img-top" src="{{ asset('public/images/penguin_snowmanning.jpg'}}" alt="visuel de {{ article.subject }}">
+                <img class="card-img-top" src="{{ asset('public/images/penguin_snowmanning.jpg')}}" alt="visuel de {{ article.subject }}">
                 <div class="card bg-primary rounded col-4 shadow p-3 mb-5">
                     <div class="card-body">
                         <h4 class="card-title bg-white font-weight-bold">{{ article.subject }}</h4>
@@ -17,34 +17,9 @@
                                 {{ keyword.name }}
                             {% endfor %}
                         </p>
-            {% endfor %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Slug</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for theme in themes %}
-            <tr>
-                <td>{{ theme.id }}</td>
-                <td>{{ theme.name }}</td>
-                <td>{{ theme.slug }}</td>
-                <td>
                     <a href="{{ path('admin_theme_show', {'slug': theme.slug}) }}"><i class="far fa-eye"></i></a>
                     <a href="{{ path('admin_theme_edit', {'slug': theme.slug}) }}"><i class="far fa-edit"></i></a>
-                </td>
-            </tr>
         {% else %}
-            <tr>
-                <td colspan="4">aucun enregistrement trouvé</td>
-            </tr>
+                <p>aucun enregistrement trouvé</p>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('admin_theme_new') }}"><i class="fas fa-plus-circle"></i></a>
 {% endblock %}

@@ -57,8 +57,20 @@ class ArticleType extends AbstractType
                 'multiple' => true,
                 'expanded' => true
             ])
-            ->add('favUsers', EntityType::class, [ 'class' => User::class])
-            ->add('authorOf', EntityType::class, ['class' => User::class])
+            ->add('authorOf', EntityType::class, [
+                'label' => 'auteur : ',
+                'class' => User::class,
+                'choice_label' => 'lastName',
+                'required' => false
+            ])
+            ->add('favUsers', EntityType::class, [
+                'label' => 'Utilisateurs ayant marqué cet article en favori',
+                'class' => User::class,
+                'choice_label' => 'lastName',
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true
+            ])
         ;
     }
 
