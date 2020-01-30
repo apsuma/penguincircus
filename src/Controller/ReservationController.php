@@ -6,7 +6,9 @@ use App\Entity\Article;
 use App\Entity\Reservation;
 use App\Entity\User;
 use App\Form\ReservationType;
+use App\Repository\ArticleRepository;
 use App\Repository\ReservationRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,8 +79,10 @@ class ReservationController extends AbstractController
     public function edit(
         Request $request,
         Reservation $reservation,
+        ArticleRepository $articleRepository,
         EntityManagerInterface $entityManager
     ): Response {
+        $isConfirmed = $reservation->getAccepted();
         $form = $this
             ->createForm(ReservationType::class, $reservation)
             ->remove('createdAt')
@@ -88,8 +92,15 @@ class ReservationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           $entityManager->flush();
-
+            $nbPlace = $reservation->getNbPlaceAdult() +  $reservation->getNbPlaceChild();
+            $evtplace = $reservation->getArticles()->getPlacesLeft();
+            if ($reservation->getAccepted() != $isConfirmed AND $reservation->getAccepted() == true) {
+                $evtplace = $evtplace - $nbPlace;
+            } elseif ($reservation->getAccepted() != $isConfirmed AND $reservation->getAccepted() == false) {
+                $evtplace = $evtplace + $nbPlace;
+            }
+            $reservation->getArticles()->setPlacesLeft($evtplace);
+            $entityManager->flush();
             return $this->redirectToRoute('admin_reservation_index');
         }
 

@@ -83,6 +83,11 @@ class Article
      */
     private $authorOf;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $placesLeft = 100;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -300,6 +305,18 @@ class Article
     public function setAuthorOf(?User $authorOf): self
     {
         $this->authorOf = $authorOf;
+
+        return $this;
+    }
+
+    public function getPlacesLeft(): ?int
+    {
+        return $this->placesLeft;
+    }
+
+    public function setPlacesLeft(?int $placesLeft): self
+    {
+        $this->placesLeft = $placesLeft;
 
         return $this;
     }

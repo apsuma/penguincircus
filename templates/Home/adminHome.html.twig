@@ -3,11 +3,11 @@
 {% block title %} Penguin Antartica Circus - Administration{% endblock %}
 
 {% block body %}
-    <h1 class="text-center text-primary display-4"> Welcome on homepage for admin</h1>
+    <h1 class="text-center text-primary display-4"> Penguin Antartica Circus - Administration</h1>
     <div class="container">
         <div class="card-deck">
             <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src="build/images/blue-tent-illustration-png-clip-art-thumbnail.png" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Article</h5>
                 </div>
@@ -15,7 +15,7 @@
                    class="stretched-link"> </a>
             </div>
             <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src="build/images/blue-tent-illustration-png-clip-art-thumbnail.png" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Thème</h5>
                 </div>
@@ -23,11 +23,23 @@
                    class="stretched-link"> </a>
             </div>
             <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top"
+                     src="{{ asset('build/images/blue-tent-illustration-png-clip-art-thumbnail.png') }}"
+                     alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Mot-clé</h5>
                 </div>
                 <a href="{{ path('admin_keywords_index') }}"
+                   class="stretched-link"> </a>
+            </div>
+            <div class="card">
+                <img class="card-img-top"
+                     src="{{ asset('build/images/blue-tent-illustration-png-clip-art-thumbnail.png') }}"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Réservations</h5>
+                </div>
+                <a href="{{ path('admin_reservation_index') }}"
                    class="stretched-link"> </a>
             </div>
         </div>

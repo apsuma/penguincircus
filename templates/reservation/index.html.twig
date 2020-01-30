@@ -14,6 +14,7 @@
                 <th>Nb Places (adulte)</th>
                 <th>Date de la réservation</th>
                 <th>Confirmer à </th>
+                <th>Nb Places libres</th>
                 <th>Réservation Confirmée</th>
                 <th>actions</th>
             </tr>
@@ -28,6 +29,7 @@
                 <td>{% if reservation.user.email %}
                         <a href="mailto:{{ reservation.user.email }}">reservation.user.email</a>
                     {% endif %}
+                <td>{{ reservation.articles.placesLeft }}</td>
                 <td>{{ reservation.accepted ? reservation.accepted : '' }}</td>
                 <td>
                     <a href="{{ path('admin_reservation_show', {'id': reservation.id}) }}"><i class="far fa-eye"></i></a>
