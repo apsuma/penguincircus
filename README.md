@@ -39,11 +39,12 @@ Paramétrage
 ### Roles (by Symfony) (security.yaml)
 
     * ROLE_ADMIN : accès aux routes commençant par admin/ et aux routes accessibles avec profil USER
-    * ROLE_USER : accès aux routes publiques
+    * ROLE_USER : accès aux routes publiques (dont espace personnel)
     
 ### interface grand public
     * focus en page d'accueil sur les 3 articles/évènements du moment
     * lire les articles, découvrir les évènements (spectacle du cirque)
+    * mettre un article en favori et le retrouver dans son espace personnel
     * réserver pour un évènement depuis la consultation d'un article si connecté
     * mieux connaître le Penguin Antartica Circus
     * se connecter / s'inscrire
@@ -64,3 +65,5 @@ database `MySQL`, via `Doctrine` in `Symfony`
 entités : `user`, `article`, `theme`, `reservation`, `keyword`
 
 tables intermédiaires générées : `article_keyword`, `article_theme`, `user_article`
+
+Checkpoint4 - janvier 2020 - réalisé par [Delphine Belet](https://github.com/apsuma) - wild code school nantes
