@@ -22,20 +22,19 @@ class PublicReservationController extends AbstractController
      */
     public function ResaForMyColony(
         Request $request,
-        EntityManagerInterface $entityManager,
-        UserInterface $user
+        EntityManagerInterface $entityManager
      ): Response {
         $reservation = new Reservation();
         $form = $this
             -> createForm(ReservationType::class, $reservation)
             -> remove('createdAt')
             -> remove('user')
-            -> remove('accepted')
-        ;
+            -> remove('accepted');
+
         $form -> handleRequest($request);
 
         if ($form -> isSubmitted() && $form -> isValid()) {
-            $reservation -> setUser($user);
+            $reservation -> setUser($this->getUser());
             $entityManager -> persist($reservation);
             $entityManager -> flush();
             $this -> addFlash(

@@ -32,8 +32,7 @@ class AdminArticleController extends AbstractController
      */
     public function new(
         Request $request,
-        EntityManagerInterface $entityManager,
-        UserInterface $user
+        EntityManagerInterface $entityManager
     ): Response
     {
         $article = new Article();
@@ -44,7 +43,7 @@ class AdminArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $article->setAuthorOf($user);
+            $article->setAuthorOf($this->getUser());
             $entityManager->persist($article);
             $entityManager->flush();
 
@@ -73,8 +72,7 @@ class AdminArticleController extends AbstractController
     public function edit(
         Request $request,
         Article $article,
-        EntityManagerInterface $entityManager,
-        UserInterface $user
+        EntityManagerInterface $entityManager
     ): Response {
         $form = $this
             ->createForm(ArticleType::class, $article)
@@ -82,8 +80,8 @@ class AdminArticleController extends AbstractController
             ->remove('authorOf')
         ;
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $article->setAuthorOf($this->getUser());
             $entityManager->flush();
             return $this->redirectToRoute('admin_article_index');
         }

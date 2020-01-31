@@ -36,7 +36,6 @@ class ReservationController extends AbstractController
     public function new(
         Request $request,
         EntityManagerInterface $entityManager,
-        User $user,
         Article $article
         ): Response {
         $reservation = new Reservation();
@@ -49,7 +48,7 @@ class ReservationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $reservation->setUser($user);
+            $reservation->setUser($this->getUser());
             $reservation->setArticles($article);
             $entityManager->persist($reservation);
             $entityManager->flush();
