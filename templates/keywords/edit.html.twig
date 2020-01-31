@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer le mot-clé {{ keyword.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center text-primary display-4">Editer le mot-clé {{ keyword.name }}</h1>
+        <div class="row mx-auto">
+            {{ include('keywords/_form.html.twig', {'button_label': 'Update'}) }}
+        </div>
+        <div class="row d-flex justify-content-between">
+            <a href="{{ path('admin_keywords_index') }}">retour à la liste</a>
+            <a class="btn btn-primary">{{ include('keywords/_delete_form.html.twig') }}</a>
+        </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des mots-clés{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-primary display-4">Liste des mots-clés</h1>
+    <a class="btn btn-primary btn-block" href="{{ path('admin_keywords_new') }}"><i class="fas fa-plus-circle"></i></a>
+    <div class="card-deck">
+        {% for keyword in keywords %}
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ keyword.name }}</h5>
+                        <div class="row d-flex justify-content-center">
+                            <a class="btn btn-primary mx-1" href="{{ path('admin_keywords_show', {'id': keyword.id}) }}"><i class="far fa-eye"></i></a>
+                            <a class="btn btn-primary mx-1" href="{{ path('admin_keywords_edit', {'id': keyword.id}) }}"><i class="far fa-edit"></i></a>
+                            <a class="btn btn-primary mx-1">{{ include('keywords/_delete_form.html.twig') }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <p class="text-center text-primary display-4">aucun enregistrement trouvé</p>
+        {% endfor %}
+    </div>
+{% endblock %}

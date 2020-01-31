@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des réservations{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-primary display-4">Liste des réservations</h1>
+    <h1 class="text-center text-primary display-4"> Jauge du chapiteau : 100 places</h1>
+    <a class="btn btn-primary btn-block" href="{{ path('admin_reservation_new') }}"><i class="fas fa-plus-circle"></i></a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Evènement</th>
+                <th>Nb Places (jeune)</th>
+                <th>Nb Places (adulte)</th>
+                <th>Date de la réservation</th>
+                <th>Confirmer à </th>
+                <th>Nb Places libres</th>
+                <th>Réservation Confirmée</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.articles.subject }}</td>
+                <td>{{ reservation.nbPlaceChild }}</td>
+                <td>{{ reservation.nbPlaceAdult }}</td>
+                <td>{{ reservation.createdAt ? reservation.createdAt|date('l d F Y h:m') : '' }}</td>
+                <td>{% if reservation.user.email %}
+                        <a href="mailto:{{ reservation.user.email }}">reservation.user.email</a>
+                    {% endif %}
+                <td>{{ reservation.articles.placesLeft }}</td>
+                <td>{{ reservation.accepted ? reservation.accepted : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_reservation_show', {'id': reservation.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('admin_reservation_edit', {'id': reservation.id}) }}"><i class="far fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">pas d'enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

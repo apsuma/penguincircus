@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un theme{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-primary display-4">Ajouter un theme</h1>
+
+    {{ include('theme/_form.html.twig') }}
+
+    <a href="{{ path('admin_theme_index') }}">retour à la liste</a>
+{% endblock %}

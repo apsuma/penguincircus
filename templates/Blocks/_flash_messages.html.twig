@@ -1,0 +1,11 @@
+<div class="row">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} w-100" role="alert">
+                <div class="col-lg-6 offset-lg-3">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>

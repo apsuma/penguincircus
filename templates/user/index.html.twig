@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenu sur votre profil{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center text-primary display-4">Bienvenue sur votre page personnelle {{ user.firstname }} {{ user.lastname }}</h1>
+    <section>
+        <div class="card text-primary bg-warning mb-3">
+            <div class="card-header">Vos réservations en cours : </div>
+            {% for resa in user.reservations %}
+            <div class="card-body">
+                <h5 class="card-title">{{ resa.articles.subject }} - {{ resa.articles.showDate| date('l d M Y') }}</h5>
+                <p class="card-text">{{ resa.accepted ? 'validée' : 'en attente' }}</p>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="card text-primary bg-warning mb-3">
+            <div class="card-header">Vos articles préférés </div>
+            {% for article in user.favArticles %}
+            <div class="card-body">
+                <h5 class="card-title"><a href="{{ path('theme_article_show', {'id': article.id }) }}">{{ article.subject }}</a></h5>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

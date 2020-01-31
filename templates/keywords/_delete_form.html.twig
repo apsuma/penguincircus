@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('admin_keywords_delete', {'id': keyword.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce mot-clé?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ keyword.id) }}">
+    <button class="btn btn-primary"><i class="fas fa-trash-alt"></i></button>
+</form>

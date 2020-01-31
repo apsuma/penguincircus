@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation - détail{% endblock %}
+
+{% block body %}
+    <h1>Réservation - détail</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reservation.id }}</td>
+            </tr>
+            <tr>
+                <th>NbPlaceChild</th>
+                <td>{{ reservation.nbPlaceChild }}</td>
+            </tr>
+            <tr>
+                <th>NbPlaceAdult</th>
+                <td>{{ reservation.nbPlaceAdult }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ reservation.createdAt ? reservation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Confirmer à :</th>
+                <td>{% if reservation.user.email %}
+                    <a href="mailto:{{ reservation.user.email }}">reservation.user.email</a>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_reservation_index') }}">back to list</a>
+
+    <a href="{{ path('admin_reservation_edit', {'id': reservation.id}) }}"><i class="far fa-edit"></a>
+
+    {{ include('reservation/_delete_form.html.twig') }}
+{% endblock %}

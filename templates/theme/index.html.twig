@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des themes{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-primary display-4">Liste des thèmes</h1>
+    <a class="btn btn-primary btn-block" href="{{ path('admin_theme_new') }}"><i class="fas fa-plus-circle"></i></a>
+    <div class="card-deck">
+        {% for theme in themes %}
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ theme.name }}</h5>
+                        <div class="row d-flex justify-content-center">
+                            <a class="btn btn-primary mx-1"
+                               href="{{ path('admin_theme_show', {'slug': theme.slug}) }}">
+                                <i class="far fa-eye"></i>
+                            </a>
+                            <a class="btn btn-primary mx-1"
+                               href="{{ path('admin_theme_edit', {'slug': theme.slug}) }}">
+                                <i class="far fa-edit"></i>
+                            </a>
+                            <a class="btn btn-primary mx-1">{{ include('theme/_delete_form.html.twig') }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>aucun enregistrement trouvé</p>
+        {% endfor %}
+    </div>
+{% endblock %}
