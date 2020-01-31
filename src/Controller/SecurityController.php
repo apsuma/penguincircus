@@ -16,7 +16,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            if ($this->getUser()->getAccountValidated() == true) {
+            if ($this->getUser()) {
                 if (in_array(current($this->getUser()->getRoles()), User::TYPE_ROLES)) {
                     if (in_array(current($this->getUser()->getRoles()), [User::ROLE_ADMIN])) {
                         return $this->redirectToRoute('admin');
